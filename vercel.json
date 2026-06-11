@@ -1,11 +1,6 @@
 {
   "buildCommand": "pip install -r requirements.txt",
   "outputDirectory": ".",
-  "functions": {
-    "api/**/*.py": {
-      "maxDuration": 60
-    }
-  },
   "routes": [
     {
       "src": "/static/(.*)",
