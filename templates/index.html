@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriBlood AI</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <span class="hero-badge">🩸 AI-Powered Analysis</span>
+            <h1>NutriBlood AI</h1>
+            <p>Upload your blood report and get a personalized<br>Indian diet plan in seconds</p>
+        </div>
+
+        <!-- Input Section -->
+        <div class="input-card">
+            <form id="analyzeForm" method="POST">
+                <label class="input-label">📋 Blood Report</label>
+                <textarea 
+                    id="bloodReport" 
+                    name="blood_report"
+                    placeholder="Paste your blood test report here...&#10;&#10;Example:&#10;Hemoglobin: 15.1 g/dL (Normal: 13.5-17.5)&#10;Total Cholesterol: 238 mg/dL (Normal: <200)"
+                    rows="8"
+                    required
+                ></textarea>
+
+                <div class="form-controls">
+                    <div class="diet-select">
+                        <label>🥗 Diet Preference</label>
+                        <select name="diet_preference" required>
+                            <option value="">Select diet type</option>
+                            <option value="Vegetarian">Vegetarian</option>
+                            <option value="Non-Vegetarian">Non-Vegetarian</option>
+                            <option value="Vegan">Vegan</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">🔍 Analyze</button>
+                    <button type="reset" class="btn btn-secondary">🔄 Reset</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="results-section" style="display:none;">
+            <div class="success-message">✅ Analysis Complete!</div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('blood-values')">📊 Blood Values</button>
+                <button class="tab-btn" onclick="switchTab('diet-plan')">🍽️ Diet Plan</button>
+                <button class="tab-btn" onclick="switchTab('report')">📥 Report</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div id="blood-values" class="tab-content active">
+                <div class="metrics">
+                    <div class="metric-card">
+                        <span class="metric-icon">🔴</span>
+                        <div>High</div>
+                        <div class="metric-value" id="highCount">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-icon">🟡</span>
+                        <div>Low</div>
+                        <div class="metric-value" id="lowCount">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-icon">🟢</span>
+                        <div>Normal</div>
+                        <div class="metric-value" id="normalCount">0</div>
+                    </div>
+                </div>
+
+                <h3>📊 Extracted Values</h3>
+                <div id="bloodValuesList"></div>
+            </div>
+
+            <div id="diet-plan" class="tab-content">
+                <h3>📝 Health Summary</h3>
+                <div id="summaryBox" class="summary-box"></div>
+
+                <h3>🍽️ Diet Plan</h3>
+                <div id="foodCardAvoid" class="food-card food-avoid"></div>
+                <div id="foodCardEat" class="food-card food-eat"></div>
+            </div>
+
+            <div id="report" class="tab-content">
+                <h3>📋 Report Preview</h3>
+                <textarea id="reportPreview" readonly rows="10"></textarea>
+                <button class="btn btn-download" onclick="downloadReport()">📥 Download Report</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            ⚠️ This is not medical advice. Always consult a qualified doctor.<br>
+            <span>NutriBlood AI • Powered by Claude</span>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
