@@ -1,4 +1,1 @@
-from app import app
-
-# Vercel serverless entry point
-handler = app
+from app import app as app
