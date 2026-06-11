@@ -2,17 +2,26 @@ from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 import json
 import re
+import os
 
 load_dotenv()
 
-llm = ChatGroq(
-    model="qwen/qwen3-32b",
-    temperature=0,
-    max_tokens=None,
-    reasoning_format="parsed",
-    timeout=None,
-    max_retries=2,
-)
+# Lazy initialization - only create the LLM when first needed
+_llm = None
+
+
+def _get_llm():
+    global _llm
+    if _llm is None:
+        _llm = ChatGroq(
+            model="qwen/qwen3-32b",
+            temperature=0,
+            max_tokens=None,
+            reasoning_format="parsed",
+            timeout=None,
+            max_retries=2,
+        )
+    return _llm
 
 
 def _safe_json_parse(text: str):
@@ -34,6 +43,7 @@ def analyze_blood_report(blood_report_text: str, diet_type: str = "Vegetarian") 
     """
     Analyze blood report and return structured JSON output.
     """
+    llm = _get_llm()
 
     prompt = f"""
     You are a medical + nutrition AI.

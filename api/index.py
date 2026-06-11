@@ -3,7 +3,8 @@ import sys
 from pathlib import Path
 
 # Add the parent directory to the path so we can import from app.py
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(BASE_DIR))
 
 from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -13,9 +14,6 @@ from starlette.requests import Request
 import llm_call
 
 app = FastAPI()
-
-# Get the absolute path to the project root
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Mount static files
 app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
