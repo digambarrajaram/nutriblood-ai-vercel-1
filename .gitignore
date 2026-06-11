@@ -1,5 +1,4 @@
 # Virtual environment
-fastapi_ai/
 venv/
 .venv/
 
@@ -19,9 +18,11 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Streamlit (old app - removed)
-.streamlit/
+# Vercel
+.vercel/
 
-# Other
+# Other leftovers
 -p/
 nutriblood-ai/
+.streamlit/
+fastapi_ai/

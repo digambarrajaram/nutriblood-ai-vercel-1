@@ -2,27 +2,24 @@
 
 AI-powered blood report analysis with personalized Indian diet recommendations.
 
-## 🚀 Deploy to Render
+## 🚀 Deploy to Vercel
 
 ### One-click Deploy
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/nutriblood-ai)
 
 ### Manual Deploy
 
-1. **Fork/Clone this repo** to your GitHub account.
+1. **Push this repo to GitHub.**
 
-2. **Create a new Web Service** on [Render](https://dashboard.render.com/).
+2. **Import the project** on [Vercel](https://vercel.com/new):
+   - Connect your GitHub repository
+   - Vercel will auto-detect the Python runtime from `vercel.json`
 
-3. **Connect your GitHub repo** and use these settings:
-   - **Runtime:** Python
-   - **Build Command:** `pip install -r requirements.txt`
-   - **Start Command:** `uvicorn app:app --host 0.0.0.0 --port $PORT`
-
-4. **Add Environment Variable:**
+3. **Add Environment Variable:**
    - `GROQ_API_KEY` — Get yours from [console.groq.com](https://console.groq.com/)
 
-5. **Deploy!** 🎉
+4. **Deploy!** 🎉
 
 ## 🛠️ Local Development
 
@@ -52,18 +49,20 @@ Open **http://127.0.0.1:8000** in your browser.
 
 ```
 nutriblood-ai/
-├── app.py              # FastAPI web server
-├── llm_call.py         # LLM analysis logic (Groq)
+├── api/
+│   └── index.py         # Vercel serverless entry point
+├── app.py               # FastAPI web server
+├── llm_call.py          # LLM analysis logic (Groq)
 ├── templates/
-│   └── index.html      # Frontend HTML
+│   └── index.html       # Frontend HTML
 ├── static/
-│   ├── css/style.css   # Styles
-│   └── js/app.js       # Frontend logic
-├── requirements.txt    # Python dependencies
-├── render.yaml         # Render deployment config
-├── .env.example        # Environment variable template
+│   ├── css/style.css    # Styles
+│   └── js/app.js        # Frontend logic
+├── requirements.txt     # Python dependencies
+├── vercel.json          # Vercel deployment config
+├── .env.example         # Environment variable template
 ├── .gitignore
-└── blood_work.txt      # Sample blood report for testing
+└── blood_work.txt       # Sample blood report for testing
 ```
 
 ## ⚠️ Disclaimer
