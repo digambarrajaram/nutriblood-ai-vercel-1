@@ -12,12 +12,19 @@
         <div class="hero">
             <span class="hero-badge">🩸 AI-Powered Analysis</span>
             <h1>NutriBlood AI</h1>
-            <p>Upload your blood report and get a personalized<br>Indian diet plan in seconds</p>
+            <p>Upload a blood report image or paste text to get a personalized<br>Indian diet plan in seconds</p>
         </div>
 
         <!-- Input Section -->
         <div class="input-card">
-            <form id="analyzeForm" method="POST">
+            <!-- Input Mode Toggle -->
+            <div class="input-mode-toggle">
+                <button id="textModeBtn" class="mode-btn active" onclick="switchInputMode('text')">📝 Text Input</button>
+                <button id="imageModeBtn" class="mode-btn" onclick="switchInputMode('image')">📸 Image Upload</button>
+            </div>
+
+            <!-- Text Input Form -->
+            <form id="analyzeForm" method="POST" style="display: block;">
                 <label class="input-label">📋 Blood Report</label>
                 <textarea 
                     id="bloodReport" 
@@ -41,6 +48,58 @@
                     <button type="reset" class="btn btn-secondary">🔄 Reset</button>
                 </div>
             </form>
+
+            <!-- Image Upload Form -->
+            <form id="imageForm" method="POST" style="display: none;">
+                <label class="input-label">📸 Blood Report Image</label>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-placeholder" id="uploadPlaceholder">
+                        <span class="upload-icon">📤</span>
+                        <p>Drag & drop your blood report image here</p>
+                        <p class="upload-hint">Click, paste (Ctrl+V), or drag & drop an image (PNG, JPG)</p>
+                    </div>
+                    <div class="upload-preview" id="uploadPreview">
+                        <img id="previewImage" alt="Blood report preview">
+                        <div class="file-info" id="fileInfo">
+                            <span class="file-name" id="fileName"></span>
+                            <span class="file-size" id="fileSize"></span>
+                        </div>
+                        <div class="upload-loading-overlay" id="uploadLoadingOverlay">
+                            <div class="upload-loading-spinner"></div>
+                            <span>Analyzing image...</span>
+                        </div>
+                    </div>
+                    <div class="upload-error" id="uploadError">
+                        <span class="upload-error-icon">!</span>
+                        <span class="upload-error-text" id="uploadErrorText"></span>
+                    </div>
+                    <div class="upload-actions" id="uploadActions">
+                        <button type="button" class="btn btn-change" id="changeImageBtn">Change Image</button>
+                        <button type="button" class="btn btn-remove" id="removeImageBtn">Remove</button>
+                    </div>
+                    <input type="file" id="imageInput" name="blood_report_image" accept="image/png,image/jpeg,image/jpg" style="display: none;">
+                </div>
+
+                <div class="form-controls">
+                    <div class="diet-select">
+                        <label>🥗 Diet Preference</label>
+                        <select name="diet_preference_img" required>
+                            <option value="">Select diet type</option>
+                            <option value="Vegetarian">Vegetarian</option>
+                            <option value="Non-Vegetarian">Non-Vegetarian</option>
+                            <option value="Vegan">Vegan</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">🔍 Analyze Image</button>
+                    <button type="reset" class="btn btn-secondary">🔄 Reset</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+            <div class="spinner"></div>
+            <p>Analyzing your blood report...</p>
         </div>
 
         <!-- Results Section -->

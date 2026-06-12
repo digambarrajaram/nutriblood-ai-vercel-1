@@ -1,11 +1,12 @@
 import os
 from pathlib import Path
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, Form, File, UploadFile
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
 import llm_call
+import blood_img_llm_call
 
 app = FastAPI()
 
@@ -32,6 +33,39 @@ async def analyze(
     try:
         # Call your existing logic
         result = llm_call.analyze_blood_report(blood_report, diet_preference)
+
+        return JSONResponse({
+            "status": "success",
+            "summary": result["summary"],
+            "extracted_values": result["extracted_values"],
+            "foods_to_avoid": result["foods_to_avoid"],
+            "foods_to_eat": result["foods_to_eat"]
+        })
+    except Exception as e:
+        return JSONResponse(
+            {"status": "error", "message": str(e)},
+            status_code=400
+        )
+
+
+@app.post("/analyze-image")
+async def analyze_image(
+    blood_report_image: UploadFile = File(...),
+    diet_preference: str = Form(...)
+):
+    try:
+        # Read uploaded image bytes
+        image_bytes = await blood_report_image.read()
+
+        # Validate file type
+        if not blood_report_image.content_type or not blood_report_image.content_type.startswith("image/"):
+            return JSONResponse(
+                {"status": "error", "message": "Please upload a valid image file (PNG, JPG, etc.)"},
+                status_code=400
+            )
+
+        # Call image analysis logic
+        result = blood_img_llm_call.analyze_blood_report_image(image_bytes, diet_preference)
 
         return JSONResponse({
             "status": "success",
