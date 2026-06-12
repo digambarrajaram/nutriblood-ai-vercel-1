@@ -8,6 +8,7 @@ Hematocrit:        44%              (Normal: 41–53%)
 WBC:               6.8 x10^3/uL     (Normal: 4.5–11.0)
 Platelets:         220 x10^3/uL     (Normal: 150–400)
 
+
 LIPID PANEL
 -----------
 Total Cholesterol: 238 mg/dL        (Normal: <200)
